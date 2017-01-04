@@ -1,0 +1,73 @@
+# Administration
+admin:
+    # Category
+    category: 
+        name: Nom
+        permalink: Permalien
+        created_at: Date de création
+        updated_at: Date de mise à jour
+
+        list:
+            title: Catégories
+            no_results: Aucune catégorie pour le moment. 
+        show:
+            general_info: Informations générales          
+        new:
+            title: Ajouter une catégorie
+            save: Enregistrer
+            cancel: Annuler           
+        edit:
+            title: Modifier la catégorie
+            save: Enregistrer
+            cancel: Annuler  
+        action:
+            new: Ajouter une catégorie
+            edit: Modifier
+            delete: Supprimer        
+            before_delete: Etes vous cetains de vouloir supprimer cette catégories ?        
+        flash:
+            created: La catégorie a été créée
+            updated: La catégorie a été mise à jour
+            deleted: La catégorie a été supprimée
+    # Link
+    link: 
+      name: Liens
+      url: Url
+      created_at: Date de création
+      updated_at: Date de mise à jour
+      description: Description
+      image: Image
+      list:
+            title: Liens
+            no_results: Aucun lien pour le moment. 
+      new:
+            title: Ajouter un lien
+            save: Enregistrer
+            cancel: Annuler 
+      edit:
+            title: Modifier le lien
+            save: Enregistrer
+            cancel: Annuler  
+      show:
+            general_info: Informations générales
+      action:
+            new: Ajouter un lien
+            edit: Modifier
+            delete: Supprimer        
+            before_delete: Etes vous cetains de vouloir supprimer ce lien ?
+      flash:
+            created: Le lien a été créée
+            updated: Le lien a été mis à jour
+            deleted: Lien a été supprimé
+# Form field labels
+form:
+    category:
+        name : "Nom :"
+        parent: Catégorie parente
+    link:
+        name : "Nom :"
+        category: Catégorie
+        url: Url
+        description: Description
+        image: Image
+        

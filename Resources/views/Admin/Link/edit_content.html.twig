@@ -1,0 +1,13 @@
+{% import 'VertacooLinksDirectoryBundle:Admin/Link:macros.html.twig' as macros %}
+{% trans_default_domain 'vertacoo_links_directory' %}
+{% form_theme form 'VichUploaderBundle:Form:fields.html.twig' %}
+<div class="page-header">
+    <h1>{{ 'admin.link.edit.title'|trans }}</h1>
+</div>
+{{ macros.breadcrumb(link) }}
+{{ form_start(form, {'action': path('vertacoo_links_directory_link_edit',{'id': link.id}), 'method': 'POST','attr': {'novalidate':'novalidate'}}) }}
+    {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ 'admin.link.edit.save'|trans }}</button>
+        <a href="{{ path('vertacoo_links_directory_link_list') }}" class="btn">{{ 'admin.link.edit.cancel'|trans }}</a>         
+    </div>        
+{{ form_end(form) }}

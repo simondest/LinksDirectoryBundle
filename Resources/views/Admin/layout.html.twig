@@ -1,0 +1,32 @@
+{% extends "VertacooLinksDirectoryBundle::Admin/base.html.twig" %}
+{% block body %}
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="
+			{{ app.request.attributes.get('_route') =='vertacoo_links_directory_link_show' or 
+			   app.request.attributes.get('_route') =='vertacoo_links_directory_link_list' or 
+			   app.request.attributes.get('_route') =='vertacoo_links_directory_link_edit' or
+		       app.request.attributes.get('_route') =='vertacoo_links_directory_link_new' ? 'active' }}
+			"><a href="{{ path('vertacoo_links_directory_link_list') }}">Liens</a></li>
+			<li role="presentation" class="
+			{{ app.request.attributes.get('_route') =='vertacoo_links_directory_category_show' or 
+			   app.request.attributes.get('_route') =='vertacoo_links_directory_category_list' or 
+			   app.request.attributes.get('_route') =='vertacoo_links_directory_category_edit' or
+		       app.request.attributes.get('_route') =='vertacoo_links_directory_category_new' ? 'active' }}
+			"><a href="{{ path('vertacoo_links_directory_category_list') }}">Catégories</a></li>
+		</ul>
+		{% for type, messages in app.session.flashbag.all() %}
+		{% for message in messages %}
+		<div class="alert alert-{{ type }}">
+			{{ message }}
+			<a class="close" data-dismiss="alert" href="#">&times;</a>
+		</div>
+		{% endfor %}
+		{% endfor %}
+
+		<div>
+			{% block admin_content %}
+			{% endblock admin_content %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% trans_default_domain 'vertacoo_links_directory' %}
+
+{% macro breadcrumb(link) %}
+
+<ul class="breadcrumb">
+	<li><a href="{{ path('vertacoo_links_directory_link_list') }}">{{ 'admin.link.list.title'|trans }}</a></li>
+	{% if link.name %}
+	<li> {{ link.name }}</li>
+	{% endif %}
+</ul>
+
+{% endmacro %}

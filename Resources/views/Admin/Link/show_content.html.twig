@@ -1,0 +1,53 @@
+{% import 'VertacooLinksDirectoryBundle:Admin/Link:macros.html.twig' as macros %}
+
+{% trans_default_domain 'vertacoo_links_directory' %}
+
+<div class="page-header">
+    <h1>{{ link }}</h1>
+</div>  
+
+{{ macros.breadcrumb(link) }}
+
+<div class="well well-sm">
+    <a href="{{ path('vertacoo_links_directory_link_edit', {'id': link.id}) }}" class="btn btn-primary">
+        <i class="glyphicon glyphicon-edit"></i> {{ 'admin.link.action.edit'|trans }}
+    </a>
+    <a href="{{ path('vertacoo_links_directory_link_delete', {'id': link.id}) }}" class="btn btn-danger">
+        <i class="glyphicon glyphicon-trash"></i> {{ 'admin.link.action.delete'|trans }}
+    </a>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ 'admin.link.show.general_info'|trans }}
+    </div>
+        
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="25%" />
+            <col width="75%" />
+        </colgroup>     
+        <tbody>
+            <tr>
+                <td>{{ 'admin.link.name'|trans }}</td>
+                <td>{{ link.name }}</td>        
+            </tr>  
+            <tr>
+                <td>{{ 'admin.link.url'|trans }}</td>
+                <td>{{ link.url }}</td>        
+            </tr>              
+            <tr>
+                <td>{{ 'admin.link.description'|trans }}</td>
+                <td>{{ link.description | nl2br }}</td>        
+            </tr>              
+            <tr>
+                <td>{{ 'admin.link.created_at'|trans }}</td>
+                <td>{{ link.createdAt|date }}</td>
+            </tr>  
+            <tr>
+                <td>{{ 'admin.link.updated_at'|trans }}</td>
+                <td>{{ link.updatedAt|date }}</td>
+            </tr>          
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,61 @@
+{% import 'VertacooLinksDirectoryBundle:Admin/Category:macros.html.twig' as macros %}
+
+{% trans_default_domain 'vertacoo_links_directory' %}
+
+
+<div class="page-header">
+    <h1>
+        {% if parent %}
+            {{ parent }}
+        {% else %}
+            {{ 'admin.category.list.title'|trans }}
+        {% endif %}
+    </h1>
+</div>
+
+{{ macros.breadcrumb(path) }}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ path('vertacoo_links_directory_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'admin.category.action.new'|trans }}
+        </a>    
+    </div>
+        
+    {% if categories|length %}
+    <ul class="list-group sortable">
+        {% for category in categories %}
+        <li class="list-group-item clearfix" data-category="{{ category.id }}">
+            <div class="pull-left">
+                <a href="{{ path('vertacoo_links_directory_category_list', {'parentId': category.id}) }}" class="btn btn-link">
+                    {{ category.name }}
+                </a> 
+            </div>
+            <div class="pull-right">
+            	<a class="glyphicon glyphicon glyphicon-arrow-up btn btn-default" href="{{ path('vertacoo_links_directory_category_move',{'id': category.id, 'parentId' : parentId,'direction':'up'}) }}"></a>
+            	<a class="glyphicon glyphicon glyphicon-arrow-down btn btn-default" href="{{ path('vertacoo_links_directory_category_move',{'id': category.id, 'parentId' : parentId,'direction':'down'}) }}"></a>
+                <a href="{{ path('vertacoo_links_directory_category_show', {'id': category.id}) }}" class="btn btn-default">
+                    <i class="glyphicon glyphicon-list"></i>
+                </a>                        
+                <a href="{{ path('vertacoo_links_directory_category_edit', {'id': category.id}) }}" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>                         
+                <a href="{{ path('vertacoo_links_directory_category_delete', {'id': category.id}) }}" class="btn btn-danger" onclick="return confirm('{{ 'admin.category.action.before_delete'|trans }}')">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </div>                
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="panel-body">
+        {{ 'admin.category.list.no_results'|trans }}
+    </div>
+    {% endif %}
+        
+    <div class="panel-footer">
+        <a href="{{ path('vertacoo_links_directory_category_new', {'parentId' : parentId}) }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'admin.category.action.new'|trans }}
+        </a>    
+    </div>        
+</div>

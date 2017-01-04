@@ -1,0 +1,13 @@
+{% import 'VertacooLinksDirectoryBundle:Admin/Category:macros.html.twig' as macros %}
+{% trans_default_domain 'vertacoo_links_directory' %}
+
+<div class="page-header">
+    <h1>{{ 'admin.category.edit.title'|trans }}</h1>
+</div>
+{{ macros.breadcrumb(path) }}
+{{ form_start(form, {'action': path('vertacoo_links_directory_category_edit',{'id': category.id}), 'method': 'POST','attr': {'novalidate':'novalidate'}}) }}
+    {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ 'admin.category.edit.save'|trans }}</button>
+        <a href="{{ path('vertacoo_links_directory_category_list', {'parentId': parentId}) }}" class="btn">{{ 'admin.category.edit.cancel'|trans }}</a>         
+    </div>        
+{{ form_end(form) }}

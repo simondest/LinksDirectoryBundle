@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Vertacoo\LinksDirectoryBundle\Model\Category" repository-class="Gedmo\Tree\Entity\Repository\NestedTreeRepository">        
+            
+        <field name="name" column="name" type="string" length="255" />
+        
+        <field name="slug" column="slug" type="string" length="255" unique="true">
+            <gedmo:slug fields="name" unique="true" />
+        </field>
+        
+        <field name="permalink" column="permalink" type="string" unique="true">
+            <gedmo:slug fields="name" unique="true">
+                <gedmo:handler class="Gedmo\Sluggable\Handler\TreeSlugHandler">
+                    <gedmo:handler-option name="parentRelationField" value="parent" />
+                </gedmo:handler>
+            </gedmo:slug>
+        </field>
+
+        <field name="position" column="position" type="integer">
+            <gedmo:sortable-position />
+        </field>
+
+        <field name="rootNode" column="root_node" type="integer" nullable="true">
+            <gedmo:tree-root />
+        </field>
+
+        <field name="leftNode" column="left_node" type="integer">
+            <gedmo:tree-left />
+        </field>
+        
+        <field name="rightNode" column="right_node" type="integer">
+            <gedmo:tree-right />
+        </field>
+        
+        <field name="levelDepth" column="level_depth" type="integer">
+            <gedmo:tree-level />
+        </field>        
+        
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>    
+                
+        <many-to-one field="parent" target-entity="Vertacoo\LinksDirectoryBundle\Model\CategoryInterface" inversed-by="children">
+            <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE" />
+            <gedmo:tree-parent />
+            <gedmo:sortable-group />
+        </many-to-one> 
+                         
+                
+        <gedmo:tree type="nested" /> 
+    </mapped-superclass>
+    
+</doctrine-mapping>

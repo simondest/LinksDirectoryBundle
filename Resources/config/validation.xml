@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Vertacoo\LinksDirectoryBundle\Model\Category">
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="message">vertacoo_links_directory.category.name.blank</option>
+                <option name="groups">Category</option> 
+            </constraint>
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">255</option>
+                <option name="minMessage">vertacoo_links_directory.category.name.short</option>
+                <option name="maxMessage">vertacoo_links_directory.category.name.long</option>
+                <option name="groups">Category</option>
+            </constraint>
+        </property>   
+    </class>
+    <class name="Vertacoo\LinksDirectoryBundle\Model\Link">
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="message">vertacoo_links_directory.link.name.blank</option>
+                <option name="groups">Link</option> 
+            </constraint>
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">255</option>
+                <option name="minMessage">vertacoo_links_directory.link.name.short</option>
+                <option name="maxMessage">vertacoo_links_directory.link.name.long</option>
+                <option name="groups">Link</option>
+            </constraint>
+        </property>
+        <property name="url">
+        	<constraint name="NotBlank" />
+        	<constraint name="Url" />
+        </property>   
+        <property name="categorie">
+        	<constraint name="NotBlank" />
+        </property>   
+    </class>
+
+</constraint-mapping>        

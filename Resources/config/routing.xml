@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vertacoo_links_directory_category_list" path="/category/list" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:list</default>
+    </route>  
+
+    <route id="vertacoo_links_directory_category_new" path="/category/new">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:new</default>
+    </route>    
+    
+    <route id="vertacoo_links_directory_category_show" path="/category/{id}" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:show</default>
+    </route>
+
+    <route id="vertacoo_links_directory_category_edit" path="/category/{id}/edit">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:edit</default>
+    </route>   
+    
+    <route id="vertacoo_links_directory_category_delete" path="/category/{id}/delete" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:delete</default>
+    </route>  
+    
+    <route id="vertacoo_links_directory_category_move" path="/category/{id}/move" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:move</default>
+    </route>
+    
+    <route id="vertacoo_links_directory_link_list" path="/link/list" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:list</default>
+    </route>  
+
+    <route id="vertacoo_links_directory_link_new" path="/link/new">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:new</default>
+    </route>    
+    
+    <route id="vertacoo_links_directory_link_show" path="/link/{id}" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:show</default>
+    </route>
+
+    <route id="vertacoo_links_directory_link_edit" path="/link/{id}/edit">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:edit</default>
+    </route>   
+    
+    <route id="vertacoo_links_directory_link_delete" path="/link/{id}/delete" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:delete</default>
+    </route>
+</routes>

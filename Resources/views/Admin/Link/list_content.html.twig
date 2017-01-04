@@ -1,0 +1,57 @@
+{% import 'VertacooLinksDirectoryBundle:Admin/Link:macros.html.twig' as macros %}
+
+{% trans_default_domain 'vertacoo_links_directory' %}
+
+
+<div class="page-header">
+    <h1>
+        {% if parent %}
+            {{ parent }}
+        {% else %}
+            {{ 'admin.link.list.title'|trans }}
+        {% endif %}
+    </h1>
+</div>
+
+{{ macros.breadcrumb() }}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ path('vertacoo_links_directory_link_new') }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'admin.link.action.new'|trans }}
+        </a>    
+    </div>
+        
+    {% if links|length %}
+    <ul class="list-group sortable">
+        {% for link in links %}
+        <li class="list-group-item clearfix">
+            <div class="pull-left">        
+                    {{ link.name }}
+            </div>
+            <div class="pull-right">
+            	<a href="{{ path('vertacoo_links_directory_link_show', {'id': link.id}) }}" class="btn btn-default">
+                    <i class="glyphicon glyphicon-list"></i>
+                </a>                        
+                <a href="{{ path('vertacoo_links_directory_link_edit', {'id': link.id}) }}" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>                         
+                <a href="{{ path('vertacoo_links_directory_link_delete', {'id': link.id}) }}" class="btn btn-danger" onclick="return confirm('{{ 'admin.link.action.before_delete'|trans }}')">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </div>                
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="panel-body">
+        {{ 'admin.link.list.no_results'|trans }}
+    </div>
+    {% endif %}
+        
+    <div class="panel-footer">
+        <a href="{{ path('vertacoo_links_directory_link_new') }}" class="btn btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> {{ 'admin.link.action.new'|trans }}
+        </a>    
+    </div>        
+</div>

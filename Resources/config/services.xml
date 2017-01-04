@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+	<services>
+		<service id="vertacoo_links_directory.entity_manager" alias="doctrine.orm.default_entity_manager" />
+		<service id="vertacoo_links_directory.manager.category"
+			class="Vertacoo\LinksDirectoryBundle\Doctrine\CategoryManager">
+			<argument type="service" id="vertacoo_links_directory.entity_manager" />
+			<argument>%vertacoo_links_directory.category.entity%</argument>
+		</service>
+		<service id="vertacoo_links_directory.manager.link"
+			class="Vertacoo\LinksDirectoryBundle\Doctrine\LinkManager">
+			<argument type="service" id="vertacoo_links_directory.entity_manager" />
+			<argument>%vertacoo_links_directory.link.entity%</argument>
+		</service>
+
+		<service id="vertacoo_links_directory.form.type.category"
+			class="Vertacoo\LinksDirectoryBundle\Form\Type\CategoryType">
+			<argument>%vertacoo_links_directory.category.entity%</argument>
+			<tag name="form.type" />
+		</service>
+		
+		<service id="vertacoo_links_directory.form.type.link"
+			class="Vertacoo\LinksDirectoryBundle\Form\Type\LinkType">
+			<argument>%vertacoo_links_directory.link.entity%</argument>
+			<tag name="form.type" />
+		</service>
+		
+		<service id="vertacoo_links_directory.form.type.category_selector" class="Vertacoo\LinksDirectoryBundle\Form\Type\CategorySelectorType">
+	    	<argument>%vertacoo_links_directory.category.entity%</argument>
+	    <tag name="form.type" />
+</service>
+
+	</services>
+</container>

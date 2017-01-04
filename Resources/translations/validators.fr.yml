@@ -1,0 +1,11 @@
+vertacoo_links_directory:     
+    category:
+        name:
+            blank: Veuillez entrer un nom
+            short: Le nom doit comporter au moins {{ limit }} caractères
+            long: Le nom ne doit pas comporter plus de {{ limit }} caractères       
+    link:
+        name:
+            blank: Veuillez entrer un nom
+            short: Le nom doit comporter au moins {{ limit }} caractères
+            long: Le nom ne doit pas comporter plus de {{ limit }} caractères       

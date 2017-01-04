@@ -1,0 +1,15 @@
+{% import 'VertacooLinksDirectoryBundle:Admin/Link:macros.html.twig' as macros %}
+
+{% trans_default_domain 'vertacoo_links_directory' %}
+<div class="page-header">
+    <h1>{{ 'admin.link.new.title'|trans }}</h1>
+</div>
+{{ macros.breadcrumb(link) }}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+     <div>
+        <button type="submit" class="btn btn-primary">{{ 'admin.link.new.save'|trans }}</button>
+        <a href="{{ path('vertacoo_links_directory_link_list') }}" class="btn">{{ 'admin.link.new.cancel'|trans }}</a>          
+    </div>         
+{{ form_end(form) }}
