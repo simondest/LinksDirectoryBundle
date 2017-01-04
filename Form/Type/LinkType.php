@@ -29,13 +29,15 @@ class LinkType extends AbstractType
             'label' => 'form.link.name'
         ))
             ->add('description',null, array(
-            'label' => 'form.link.description'
+            'label' => 'form.link.description',
+            'required' => false
         ))
             ->add('url', UrlType::class, array(
             'label' => 'form.link.url'
         ))
             ->add('imageFile', VichImageType::class, array(
-            'label' => 'form.link.image'
+            'label' => 'form.link.image',
+            'required' => false
         ))
             ->add('categorie', CategorySelectorType::class, array(
             'label' => 'form.link.category'
