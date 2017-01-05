@@ -134,6 +134,13 @@ class CategoryManager
         return $this->repository->getRootNodes();
        
     }
+    
+    public function getRepository(){
+        return $this->repository;
+    }
+    public function getObjectManager(){
+        return $this->objectManager;
+    }
 
     /**
      * {@inheritDoc}
