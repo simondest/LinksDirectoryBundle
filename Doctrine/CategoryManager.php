@@ -113,6 +113,27 @@ class CategoryManager
     {
         return $this->findCategoriesBy(array('parent' => $category), $orderBy);
     }
+    
+    public function getCategoriesWithLinks($category=null){
+        $categories = array();
+        $qb = $this->repository->getChildrenQueryBuilder();
+        $qb->innerJoin($qb->getRootAlias().'.links', 'l');
+        return  $qb->getQuery()->getResult();
+        
+        
+        return $categories;
+    }
+    
+    public function moveCategoryUp($category){
+        $this->repository->moveUp($category);
+    }
+    public function moveCategoryDown($category){
+        $this->repository->moveDown($category);
+    }
+    public function getRootCategories(){
+        return $this->repository->getRootNodes();
+       
+    }
 
     /**
      * {@inheritDoc}

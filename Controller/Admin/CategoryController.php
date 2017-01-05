@@ -24,7 +24,7 @@ class CategoryController extends Controller
         }
         
         $categories = $categoryManager->getChildrenCategories($parent, array(
-            'position' => 'ASC'
+            'leftNode' => 'ASC',
         ));
         return $this->render('VertacooLinksDirectoryBundle:Admin/Category:list.html.twig', array(
             'path' => $path,
@@ -133,6 +133,7 @@ class CategoryController extends Controller
     public function moveAction(Request $request, $id)
     {
         $parentId = null;
+        $categoryManager = $this->container->get('vertacoo_links_directory.manager.category');
         $category = $this->findCategoryById($id);
         if ($request->query->has('parentId')) {
             $parentId = $request->query->get('parentId');
@@ -140,10 +141,23 @@ class CategoryController extends Controller
         if ($request->query->has('direction')) {
             $direction = $request->query->get('direction');
             if($direction=='up'){
-                $category->setPosition($category->getPosition()-1);
+                if(!$parentId){
+                    $category->setPosition($category->getPosition()-1);
+                }
+                else {
+                    
+                }
+                $categoryManager->moveCategoryUp($category);
+                
             }
             else {
+                if(!$parentId){
                 $category->setPosition($category->getPosition()+1);
+                }
+                else {
+                    
+                }
+                $categoryManager->moveCategoryDown($category);
             }
             
             $this->container->get('vertacoo_links_directory.manager.category')->updateCategory($category);

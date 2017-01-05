@@ -39,6 +39,9 @@
         <property name="categorie">
         	<constraint name="NotBlank" />
         </property>   
+        <property name="imageFile">
+        	<constraint name="Image" />
+        </property>   
     </class>
 
 </constraint-mapping>        

@@ -25,9 +25,7 @@
             <gedmo:sortable-position />
         </field>
 
-        <field name="rootNode" column="root_node" type="integer" nullable="true">
-            <gedmo:tree-root />
-        </field>
+       
 
         <field name="leftNode" column="left_node" type="integer">
             <gedmo:tree-left />

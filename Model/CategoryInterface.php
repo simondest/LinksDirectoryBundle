@@ -151,5 +151,6 @@ interface CategoryInterface
      * 
      * @param \Datetime|null $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null);      
+    public function setUpdatedAt(\DateTime $updatedAt = null);  
+    
 }

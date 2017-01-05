@@ -29,7 +29,7 @@ class CategorySelectorType extends AbstractType
             'translation_domain' => 'vertacoo_links_directory',
             'choice_label' => 'indentedName',
             'query_builder' => function (NestedTreeRepository $er) {
-                return $er->getChildrenQueryBuilder(null, null, 'rootNode', 'asc', false);
+                return $er->getChildrenQueryBuilder();
             }
         ));
     }

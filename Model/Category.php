@@ -69,6 +69,7 @@ abstract class Category implements CategoryInterface
     
     protected $indentedName;
     
+    
     /**
      * Constructor.
      */      
