@@ -6,19 +6,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Vertacoo\LinksDirectoryBundle\Form\Type\LinkType;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class LinkController extends Controller
 {
 
-    public function listAction(Request $request)
+    public function listAction(Request $request,$page=1)
     {
         $linkManager = $this->container->get('vertacoo_links_directory.manager.link');
         
-        $links = $linkManager->findLinksBy(array(), array(
-            'name' => 'asc'
-        ));
+        $maxLinksPerPage = $this->getParameter('vertacoo_links_directory.max_links_per_page');
+        
+        $linksQuery = $linkManager->getLinksQuery('name', 'asc', $maxLinksPerPage, ($page - 1) * $maxLinksPerPage);
+        
+        $links = new Paginator($linksQuery,false);
+        
+        $pagination = array(
+            'page' => $page,
+            'pages_count' => ceil(count($links) / $maxLinksPerPage),
+            'route' => 'vertacoo_links_directory_link_list',
+            'route_params' => array()
+        );
+        
+
         return $this->render('VertacooLinksDirectoryBundle:Admin/Link:list.html.twig', array(
-            'links' => $links
+            'links' => $links,
+            'pagination' => $pagination
         ));
     }
 

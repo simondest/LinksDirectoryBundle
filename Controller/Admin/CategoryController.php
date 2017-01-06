@@ -6,11 +6,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Vertacoo\LinksDirectoryBundle\Form\Type\CategoryType;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class CategoryController extends Controller
 {
 
-    public function listAction(Request $request)
+    public function listAction(Request $request, $page = 1)
     {
         $path = array();
         $parentId = $parent = null;
@@ -23,14 +24,27 @@ class CategoryController extends Controller
             $path = $categoryManager->getCategoryPath($parent);
         }
         
-        $categories = $categoryManager->getChildrenCategories($parent, array(
-            'leftNode' => 'ASC',
-        ));
+        $maxCategoriesPerPage = $this->getParameter('vertacoo_links_directory.max_categories_per_page');
+        
+        $categoriesQuery = $categoryManager->getChildrenCategoriesQuery($parent, array(
+            'leftNode'
+        ), 'asc', $maxCategoriesPerPage, ($page - 1) * $maxCategoriesPerPage);
+        
+        $categories = new Paginator($categoriesQuery,false);
+        
+        $pagination = array(
+            'page' => $page,
+            'pages_count' => ceil(count($categories) / $maxCategoriesPerPage),
+            'route' => 'vertacoo_links_directory_category_list',
+            'route_params' => array()
+        );
+        
         return $this->render('VertacooLinksDirectoryBundle:Admin/Category:list.html.twig', array(
             'path' => $path,
             'parent' => $parent,
             'parentId' => $parentId,
-            'categories' => $categories
+            'categories' => $categories,
+            'pagination' => $pagination
         ));
     }
 
@@ -55,7 +69,7 @@ class CategoryController extends Controller
             $parentId = $request->query->get('parentId');
             $parent = $this->findCategoryById($parentId);
             $path = $categoryManager->getCategoryPath($parent);
-        }    
+        }
         
         $category = $categoryManager->createCategory($parent);
         
@@ -75,7 +89,7 @@ class CategoryController extends Controller
         return $this->render('VertacooLinksDirectoryBundle:Admin/Category:new.html.twig', array(
             'parentId' => $parentId,
             'form' => $form->createView(),
-            'path' => $path,
+            'path' => $path
         ));
     }
 
@@ -140,23 +154,15 @@ class CategoryController extends Controller
         }
         if ($request->query->has('direction')) {
             $direction = $request->query->get('direction');
-            if($direction=='up'){
-                if(!$parentId){
-                    $category->setPosition($category->getPosition()-1);
-                }
-                else {
-                    
-                }
+            if ($direction == 'up') {
+                if (! $parentId) {
+                    $category->setPosition($category->getPosition() - 1);
+                } else {}
                 $categoryManager->moveCategoryUp($category);
-                
-            }
-            else {
-                if(!$parentId){
-                $category->setPosition($category->getPosition()+1);
-                }
-                else {
-                    
-                }
+            } else {
+                if (! $parentId) {
+                    $category->setPosition($category->getPosition() + 1);
+                } else {}
                 $categoryManager->moveCategoryDown($category);
             }
             

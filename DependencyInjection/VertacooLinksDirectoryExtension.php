@@ -30,6 +30,8 @@ class VertacooLinksDirectoryExtension extends Extension implements PrependExtens
         
         $container->setParameter('vertacoo_links_directory.category.entity', $config['category_entity']);
         $container->setParameter('vertacoo_links_directory.link.entity', $config['link_entity']);
+        $container->setParameter('vertacoo_links_directory.max_categories_per_page', $config['max_categories_per_page']);
+        $container->setParameter('vertacoo_links_directory.max_links_per_page', $config['max_links_per_page']);
     }
 
     public function prepend(ContainerBuilder $container)

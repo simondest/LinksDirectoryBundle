@@ -4,38 +4,42 @@ namespace Vertacoo\LinksDirectoryBundle\Doctrine;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Vertacoo\LinksDirectoryBundle\Model\LinkInterface;
+
 /**
  * Doctrine Link Manager.
- *
  */
-class LinkManager 
+class LinkManager
 {
+
     /**
+     *
      * @var ObjectManager
      */
     protected $objectManager;
 
     /**
+     *
      * @var ObjectRepository
      */
     protected $repository;
+
     /**
+     *
      * @var string
      */
     protected $class;
 
-
     /**
      * Constructor.
      *
-     * @param ObjectManager $om
-     * @param string        $class
+     * @param ObjectManager $om            
+     * @param string $class            
      */
     public function __construct(ObjectManager $om, $class)
     {
         $this->objectManager = $om;
         $this->repository = $om->getRepository($class);
-
+        
         $metadata = $om->getClassMetadata($class);
         $this->class = $metadata->getName();
     }
@@ -43,13 +47,14 @@ class LinkManager
     /**
      * Updates a link.
      *
-     * @param LinkInterface $link
-     * @param Boolean           $andFlush Whether to flush the changes (default true)
+     * @param LinkInterface $link            
+     * @param Boolean $andFlush
+     *            Whether to flush the changes (default true)
      */
     public function updateLink(LinkInterface $link, $andFlush = true)
     {
         $this->objectManager->persist($link);
-
+        
         if ($andFlush) {
             $this->objectManager->flush();
         }
@@ -71,16 +76,25 @@ class LinkManager
         return $this->repository->findBy($criteria, $orderBy);
     }
 
+    public function getLinksQuery($orderBy = 'name', $direction = 'asc', $maxResult, $firstResult)
+    {
+        $qb = $this->objectManager->createQueryBuilder();
+        $qb->select('link')->from($this->getClass(),'link');
+        if ($orderBy) {
+            $qb->orderBy('link.'.$orderBy, $direction);
+        }
+        $qb->setMaxResults($maxResult);
+        $qb->setFirstResult($firstResult);
+        return $qb->getQuery();
+    }
 
     public function createLink(LinkInterface $parent = null)
     {
         $class = $this->getClass();
         $link = new $class();
-    
+        
         return $link;
     }
-    
-    
 
     public function getClass()
     {

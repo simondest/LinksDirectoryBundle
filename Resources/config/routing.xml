@@ -4,8 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="vertacoo_links_directory_category_list" path="/category/list" methods="GET">
+    <route id="vertacoo_links_directory_category_list" path="/category/list/{page}" methods="GET">
         <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:list</default>
+        <default key="page">1</default>
     </route>  
 
     <route id="vertacoo_links_directory_category_new" path="/category/new">
@@ -28,8 +29,9 @@
         <default key="_controller">VertacooLinksDirectoryBundle:Admin/Category:move</default>
     </route>
     
-    <route id="vertacoo_links_directory_link_list" path="/link/list" methods="GET">
+    <route id="vertacoo_links_directory_link_list" path="/link/list/{page}" methods="GET">
         <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:list</default>
+        <default key="page">1</default>
     </route>  
 
     <route id="vertacoo_links_directory_link_new" path="/link/new">

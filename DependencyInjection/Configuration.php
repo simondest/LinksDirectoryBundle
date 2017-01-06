@@ -40,6 +40,14 @@ class Configuration implements ConfigurationInterface
             ->isRequired()
             ->cannotBeEmpty()
             ->end()
+            ->scalarNode('max_categories_per_page')
+            ->cannotBeEmpty()
+            ->defaultValue(10)
+            ->end()
+            ->scalarNode('max_links_per_page')
+            ->cannotBeEmpty()
+            ->defaultValue(10)
+            ->end()
             
             ->end();
         
