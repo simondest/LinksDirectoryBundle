@@ -30,7 +30,7 @@ class CategoryController extends Controller
             'leftNode'
         ), 'asc', $maxCategoriesPerPage, ($page - 1) * $maxCategoriesPerPage);
         
-        $categories = new Paginator($categoriesQuery,false);
+        $categories = new Paginator($categoriesQuery, false);
         
         $pagination = array(
             'page' => $page,
@@ -76,14 +76,19 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            $categoryManager->updateCategory($category);
-            $this->addFlash('success', $this->get('translator')
-                ->trans('admin.category.flash.created', array(), 'vertacoo_links_directory'));
-            $parentId = $category->getParent() ? $category->getParent()->getId() : null;
-            return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_category_list', array(
-                'parentId' => $parentId
-            )));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $categoryManager->updateCategory($category);
+                $this->addFlash('success', $this->get('translator')
+                    ->trans('admin.category.flash.created', array(), 'vertacoo_links_directory'));
+                $parentId = $category->getParent() ? $category->getParent()->getId() : null;
+                return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_category_list', array(
+                    'parentId' => $parentId
+                )));
+            } else {
+                $this->addFlash('danger', $this->get('translator')
+                    ->trans('admin.category.flash.error', array(), 'vertacoo_links_directory'));
+            }
         }
         
         return $this->render('VertacooLinksDirectoryBundle:Admin/Category:new.html.twig', array(
@@ -107,7 +112,8 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
             $this->container->get('vertacoo_links_directory.manager.category')->updateCategory($category);
             $this->addFlash('success', $this->get('translator')
                 ->trans('admin.category.flash.updated', array(), 'vertacoo_links_directory'));
@@ -115,6 +121,10 @@ class CategoryController extends Controller
             return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_category_list', array(
                 'parentId' => $parentId
             )));
+            } else {
+                $this->addFlash('danger', $this->get('translator')
+                    ->trans('admin.category.flash.error', array(), 'vertacoo_links_directory'));
+            }
         }
         return $this->render('VertacooLinksDirectoryBundle:Admin/Category:edit.html.twig', array(
             'category' => $category,

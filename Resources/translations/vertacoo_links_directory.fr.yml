@@ -29,6 +29,7 @@ admin:
             created: La catégorie a été créée
             updated: La catégorie a été mise à jour
             deleted: La catégorie a été supprimée
+            error: Erreur(s) dans le formulaire
     # Link
     link: 
       name: Liens
@@ -59,6 +60,7 @@ admin:
             created: Le lien a été créée
             updated: Le lien a été mis à jour
             deleted: Lien a été supprimé
+            error: Erreur(s) dans le formulaire
 # Form field labels
 form:
     category:

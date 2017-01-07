@@ -11,7 +11,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class LinkController extends Controller
 {
 
-    public function listAction(Request $request,$page=1)
+    public function listAction(Request $request, $page = 1)
     {
         $linkManager = $this->container->get('vertacoo_links_directory.manager.link');
         
@@ -19,7 +19,7 @@ class LinkController extends Controller
         
         $linksQuery = $linkManager->getLinksQuery('name', 'asc', $maxLinksPerPage, ($page - 1) * $maxLinksPerPage);
         
-        $links = new Paginator($linksQuery,false);
+        $links = new Paginator($linksQuery, false);
         
         $pagination = array(
             'page' => $page,
@@ -28,7 +28,6 @@ class LinkController extends Controller
             'route_params' => array()
         );
         
-
         return $this->render('VertacooLinksDirectoryBundle:Admin/Link:list.html.twig', array(
             'links' => $links,
             'pagination' => $pagination
@@ -55,11 +54,16 @@ class LinkController extends Controller
         $form = $this->createForm(LinkType::class, $link);
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            $linkManager->updateLink($link);
-            $this->addFlash('success', $this->get('translator')
-                ->trans('admin.link.flash.created', array(), 'vertacoo_links_directory'));
-            return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_link_list'));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $linkManager->updateLink($link);
+                $this->addFlash('success', $this->get('translator')
+                    ->trans('admin.link.flash.created', array(), 'vertacoo_links_directory'));
+                return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_link_list'));
+            } else {
+                $this->addFlash('danger', $this->get('translator')
+                    ->trans('admin.link.flash.error', array(), 'vertacoo_links_directory'));
+            }
         }
         
         return $this->render('VertacooLinksDirectoryBundle:Admin/Link:new.html.twig', array(
@@ -77,12 +81,17 @@ class LinkController extends Controller
         $form = $this->createForm(LinkType::class, $link);
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->container->get('vertacoo_links_directory.manager.link')->updateLink($link);
-            $this->addFlash('success', $this->get('translator')
-                ->trans('admin.link.flash.updated', array(), 'vertacoo_links_directory'));
-            
-            return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_link_list', array()));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->container->get('vertacoo_links_directory.manager.link')->updateLink($link);
+                $this->addFlash('success', $this->get('translator')
+                    ->trans('admin.link.flash.updated', array(), 'vertacoo_links_directory'));
+                
+                return new RedirectResponse($this->container->get('router')->generate('vertacoo_links_directory_link_list', array()));
+            } else {
+                $this->addFlash('danger', $this->get('translator')
+                    ->trans('admin.link.flash.error', array(), 'vertacoo_links_directory'));
+            }
         }
         return $this->render('VertacooLinksDirectoryBundle:Admin/Link:edit.html.twig', array(
             'link' => $link,
