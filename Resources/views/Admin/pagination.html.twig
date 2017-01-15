@@ -1,3 +1,4 @@
+{% if pagination.pages_count>1 %}
 <ul class="pagination">
 	{% if pagination.page>1 %}
 	<li><a href="{{ path(pagination.route, 
@@ -18,3 +19,4 @@ pagination.route_params|merge({'page': pagination.page+1})) }}">></a></li>
 pagination.route_params|merge({'page': pagination.pages_count})) }}">>></a></li>
 	{% endif %}
 </ul>
+{% endif %}

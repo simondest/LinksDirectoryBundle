@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Vertacoo\LinksDirectoryBundle\Form\Type\LinkType;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Vertacoo\LinksDirectoryBundle\Form\Type\LinkFilterType;
 
 class LinkController extends Controller
 {
@@ -14,11 +15,12 @@ class LinkController extends Controller
     public function listAction(Request $request, $page = 1)
     {
         $linkManager = $this->container->get('vertacoo_links_directory.manager.link');
+        $categoryManager = $this->container->get('vertacoo_links_directory.manager.category');
         
         $maxLinksPerPage = $this->getParameter('vertacoo_links_directory.max_links_per_page');
         
-        $linksQuery = $linkManager->getLinksQuery('name', 'asc', $maxLinksPerPage, ($page - 1) * $maxLinksPerPage);
-        
+        $filter = $request->query->get('vertacoo_links_linkfilter');
+        $linksQuery = $linkManager->getLinksQuery('name', 'asc', $maxLinksPerPage, ($page - 1) * $maxLinksPerPage, $filter);
         $links = new Paginator($linksQuery, false);
         
         $pagination = array(
@@ -28,9 +30,14 @@ class LinkController extends Controller
             'route_params' => array()
         );
         
+        $filterForm = $this->createForm(LinkFilterType::class, array(
+            'name' => $filter['name'],
+            'categorie' => $categoryManager->findCategoryBy(array('id'=>$filter['categorie'])),
+        ));
         return $this->render('VertacooLinksDirectoryBundle:Admin/Link:list.html.twig', array(
             'links' => $links,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'filter' => $filterForm->createView()
         ));
     }
 

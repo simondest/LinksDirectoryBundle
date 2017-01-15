@@ -49,4 +49,7 @@
     <route id="vertacoo_links_directory_link_delete" path="/link/{id}/delete" methods="GET">
         <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:delete</default>
     </route>
+    <route id="vertacoo_links_directory_link_filter" path="/filter" methods="GET">
+        <default key="_controller">VertacooLinksDirectoryBundle:Admin/Link:list</default>
+    </route>
 </routes>

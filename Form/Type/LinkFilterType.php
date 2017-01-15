@@ -6,24 +6,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vertacoo\LinksDirectoryBundle\Form\Type\CategorySelectorType;
 
-
-class CategoryType extends AbstractType
+class LinkFilterType extends AbstractType
 {
 
-    protected $class;
-
-    public function __construct($class)
-    {
-        $this->class = $class;
-    }
-
+    /**
+     *
+     * {@inheritdoc}
+     *
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', null, array(
-            'label' => 'form.category.name'
-        ))->add('parent', CategorySelectorType::class, array(
-            'required' => false,
-            'label' => 'form.category.parent',
+            'label' => 'form.link.name'
+        ))->add('categorie', CategorySelectorType::class, array(
+            'label' => 'form.link.category',
+            'placeholder' => ''
         ));
     }
 
@@ -35,11 +32,11 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => $this->class,
+            'data_class' => null,
+            'attr' => array(
+                'novalidate' => 'novalidate'
+            ),
             'translation_domain' => 'vertacoo_links_directory',
-            'intention' => 'category',
-            'attr'=>array('novalidate'=>'novalidate'),
-            'validation_groups' => array('Category')
         ));
     }
 
@@ -50,6 +47,6 @@ class CategoryType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'vertacoo_linksdirectorybundle_category';
+        return 'vertacoo_links_linkfilter';
     }
 }

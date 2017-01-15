@@ -29,7 +29,7 @@ admin:
             created: La catégorie a été créée
             updated: La catégorie a été mise à jour
             deleted: La catégorie a été supprimée
-            error: Erreur(s) dans le formulaire
+            error: Erreur(s) dans le formulaire, veuillez vérifier les données fournies.
     # Link
     link: 
       name: Liens
@@ -49,6 +49,7 @@ admin:
             title: Modifier le lien
             save: Enregistrer
             cancel: Annuler  
+            filter: Filtrer
       show:
             general_info: Informations générales
       action:
@@ -64,10 +65,10 @@ admin:
 # Form field labels
 form:
     category:
-        name : "Nom :"
+        name : "Nom"
         parent: Catégorie parente
     link:
-        name : "Nom :"
+        name : "Nom"
         category: Catégorie
         url: Url
         description: Description

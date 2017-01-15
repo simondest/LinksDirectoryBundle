@@ -1,0 +1,19 @@
+{% form_theme filter 'bootstrap_3_horizontal_layout.html.twig' %}
+{% trans_default_domain 'vertacoo_links_directory' %}
+
+<div class="row">
+	{{ form_start(filter, {'action': path('vertacoo_links_directory_link_filter'), 'method': 'GET','attr': {'novalidate':'novalidate'}}) }}
+
+	<div class="col-md-5">
+		{{ form_row(filter.name) }}
+	</div>
+	<div class="col-md-5">
+		{{ form_row(filter.categorie) }}
+	</div>
+	<div class="col-md-2">
+		<button type="submit" class="btn btn-primary">
+			{{ 'admin.link.edit.filter'|trans }}
+		</button>
+	</div>
+	{{ form_end(filter) }}
+</div>

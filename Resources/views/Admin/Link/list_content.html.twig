@@ -10,8 +10,12 @@
 </div>
 
 {{ macros.breadcrumb() }}
+	
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+         {% include 'VertacooLinksDirectoryBundle:Admin/Link:filter_form.html.twig' %}
+    </div>
     <div class="panel-heading">
         <a href="{{ path('vertacoo_links_directory_link_new') }}" class="btn btn-primary">
             <i class="glyphicon glyphicon-plus"></i> {{ 'admin.link.action.new'|trans }}

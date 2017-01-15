@@ -76,15 +76,25 @@ class LinkManager
         return $this->repository->findBy($criteria, $orderBy);
     }
 
-    public function getLinksQuery($orderBy = 'name', $direction = 'asc', $maxResult, $firstResult)
+    public function getLinksQuery($orderBy = 'name', $direction = 'asc', $maxResult, $firstResult, $filter = null)
     {
         $qb = $this->objectManager->createQueryBuilder();
-        $qb->select('link')->from($this->getClass(),'link');
+        
+        $qb->select('link')->from($this->getClass(), 'link');
         if ($orderBy) {
-            $qb->orderBy('link.'.$orderBy, $direction);
+            $qb->orderBy('link.' . $orderBy, $direction);
         }
         $qb->setMaxResults($maxResult);
         $qb->setFirstResult($firstResult);
+        
+        if ($filter['name']) {
+            $qb->andWhere('link.name LIKE :filter_name');
+            $qb->setParameter('filter_name','%'. $filter['name'] .'%');
+        }
+        if ($filter['categorie']) {
+            $qb->andWhere('link.categorie = :filter_categorie');
+            $qb->setParameter('filter_categorie',$filter['categorie']);
+        }
         return $qb->getQuery();
     }
 

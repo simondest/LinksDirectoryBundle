@@ -36,7 +36,7 @@ class CategoryController extends Controller
             'page' => $page,
             'pages_count' => ceil(count($categories) / $maxCategoriesPerPage),
             'route' => 'vertacoo_links_directory_category_list',
-            'route_params' => array()
+            'route_params' => array('parentId'=>$parentId)
         );
         
         return $this->render('VertacooLinksDirectoryBundle:Admin/Category:list.html.twig', array(
