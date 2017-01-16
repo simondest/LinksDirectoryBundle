@@ -32,7 +32,7 @@ class LinkController extends Controller
         
         $filterForm = $this->createForm(LinkFilterType::class, array(
             'name' => $filter['name'],
-            'categorie' => $categoryManager->findCategoryBy(array('id'=>$filter['categorie'])),
+            'categorie' => $filter['categorie'] ? $categoryManager->findCategoryBy(array('id'=>$filter['categorie'])): null,
         ));
         return $this->render('VertacooLinksDirectoryBundle:Admin/Link:list.html.twig', array(
             'links' => $links,
